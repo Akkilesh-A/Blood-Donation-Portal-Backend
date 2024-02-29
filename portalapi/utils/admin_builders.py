@@ -20,7 +20,7 @@ class CustomUserAdmin(UserAdmin):
     list_display = (
         "username",
         "email",
-        "phone_number",
+        "contact",
         "is_contact_verified",
         "is_email_verified",
         "is_staff",
