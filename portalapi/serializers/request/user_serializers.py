@@ -7,6 +7,16 @@ from portalapi.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        fields = [
+            "id",
+            "email",
+            "password",
+            "role",
+            "is_contact_verified",
+            "is_email_verified",
+        ]
+        read_only_fields = ["id", "is_contact_verified", "is_email_verified"]
+        extra_kwargs = {"password": {"write_only": True}}
 
 
 class CustomTokenPairSerializer(TokenObtainPairSerializer):

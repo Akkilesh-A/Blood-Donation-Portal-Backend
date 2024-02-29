@@ -67,7 +67,7 @@ multi_line_output = 3
 line_length = 88
 default_section = "THIRDPARTY"
 known_first_party = []
-known_third_party = ["django", "drf_yasg", "model_bakery", "phonenumber_field", "pytest", "rest_framework", "rest_framework_nested", "rest_framework_simplejwt", "settings", "split_settings", "xid", "yaml"]
+known_third_party = ["autoslug", "django", "drf_yasg", "phonenumber_field", "rest_framework", "rest_framework_simplejwt", "xid"]
 
 [tool.bandit]
 exclude_dirs = ["tests"]
