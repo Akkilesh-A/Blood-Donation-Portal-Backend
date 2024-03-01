@@ -1,3 +1,5 @@
+from enum import Enum
+
 BLOOD_CHOICES = [
     ("O +ve", "O +ve"),
     (
@@ -37,3 +39,8 @@ COMPATIBLE_TYPES = [
     (";B +ve,;B -ve,AB -ve,AB +ve", "B +ve,B -ve,AB -ve,AB +ve"),
     ("AB +ve,AB -ve", "AB +ve,AB -ve"),
 ]
+
+
+class ResponseMessage(Enum):
+    USERLOGGEDINSUCCESSFULLY = "Logged in Successfully"
+    USERREGISTEREDSUCCESSFULLY = "Registered Successfully"
