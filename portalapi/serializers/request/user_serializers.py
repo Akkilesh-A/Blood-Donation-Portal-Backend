@@ -6,6 +6,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from portalapi.models import User
+from portalapi.serializers.request.profile_serializers import ProfileSerializer
 from portalapi.serializers.request.role_serializers import RoleSerializer
 
 
@@ -33,7 +34,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "email",
-            "password",
             "role",
             "contact",
             "is_contact_verified",
@@ -200,3 +200,36 @@ class UserOauthSerializerWithToken(UserSerializer):
             user = User.objects.create_user(**validated_data)
         refresh_token = RefreshToken.for_user(user)
         return user, refresh_token
+
+
+class UserSerializerWithProfile(serializers.ModelSerializer):
+    """
+    Serializer for creating or retrieving a user.
+
+    This serializer handles the serialization and deserialization of User instances.
+    It includes validation for contact, email, and password fields.
+
+    Attributes:
+        id: User ID.
+        email: User email address.
+        password: User password.
+        role: User role.
+        contact: User contact information.
+        is_contact_verified: Flag indicating whether the contact information is verified.
+        is_email_verified: Flag indicating whether the email address is verified.
+    """
+
+    role = RoleSerializer(many=False)
+    profile = ProfileSerializer(many=False)
+
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "email",
+            "role",
+            "contact",
+            "profile",
+            "is_contact_verified",
+            "is_email_verified",
+        ]
