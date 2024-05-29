@@ -3,7 +3,6 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.tokens import RefreshToken
 
 from portalapi.models import User
 from portalapi.serializers.request.profile_serializers import ProfileSerializer
@@ -76,20 +75,6 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Email already exists.")
         return email
 
-    def create(self, validated_data):
-        """
-        Create a new user instance.
-
-        Args:
-            validated_data (dict): The validated user data.
-
-        Returns:
-            tuple: A tuple containing the created user instance and the associated refresh token.
-        """
-        user = User.objects.create_user(**validated_data)
-        refresh_token = RefreshToken.for_user(user)
-        return user, refresh_token
-
     def validate_password(self, password):
         """
         Validate the user's password.
@@ -111,7 +96,7 @@ class UserSerializer(serializers.ModelSerializer):
         return password
 
 
-class CustomTokenPairSerializer(TokenObtainPairSerializer):
+class LoginSerializer(TokenObtainPairSerializer):
     """
     Serializer for custom token pair response.
 
@@ -144,62 +129,29 @@ class CustomTokenPairSerializer(TokenObtainPairSerializer):
         return response_data
 
 
-class UserOauthSerializerWithToken(UserSerializer):
-    """
-    Serializer for creating or retrieving a user with OAuth authentication.
-
-    This serializer extends UserSerializer to accommodate OAuth authentication,
-    specifically tailored for scenarios where the user's email serves as the username.
-
-    Attributes:
-        email: Email field for the user.
-    """
+class RegisterSerializer(serializers.ModelSerializer):
+    confirm_password = serializers.CharField(required=True)
 
     class Meta:
         model = User
-        fields = ["email"]
+        fields = ["email", "contact", "password", "confirm_password"]
 
     def validate(self, attrs):
-        """
-        Validate the user attributes.
+        data = super().validate(attrs)
+        data["username"] = data["email"]
+        if data["password"] != data["confirm_password"]:
+            raise serializers.ValidationError("Passwords do not match.")
+        return data
 
-        Args:
-            attrs (dict): The user attributes.
-
-        Returns:
-            dict: The validated user data.
-        """
-        attrs["username"] = attrs["email"]
-        return attrs
+    def validate_contact(self, contact):
+        if User.objects.filter(contact=contact).exists():
+            raise serializers.ValidationError("User with same contact already exists.")
+        return contact
 
     def validate_email(self, email):
-        """
-        Validate the email field.
-
-        Args:
-            email (str): The email address.
-
-        Returns:
-            str: The validated email.
-        """
+        if User.objects.filter(email=email).exists():
+            raise serializers.ValidationError("User with same email already exists.")
         return email
-
-    def create(self, validated_data):
-        """
-        Create a new user instance.
-
-        Args:
-            validated_data (dict): The validated user data.
-
-        Returns:
-            tuple: A tuple containing the created user instance and the associated refresh token.
-        """
-        if User.objects.filter(email=validated_data["email"]).exists():
-            user = User.objects.get(email=validated_data["email"])
-        else:
-            user = User.objects.create_user(**validated_data)
-        refresh_token = RefreshToken.for_user(user)
-        return user, refresh_token
 
 
 class UserSerializerWithProfile(serializers.ModelSerializer):
