@@ -21,7 +21,7 @@ from drf_yasg.views import get_schema_view
 
 SchemaView = get_schema_view(
     openapi.Info(
-        title="Snippets API",
+        title="Blood Bank Portal API",
         default_version="v1",
         description="Test description",
         terms_of_service="https://www.google.com/policies/terms/",

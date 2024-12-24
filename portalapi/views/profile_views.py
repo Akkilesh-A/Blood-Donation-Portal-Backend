@@ -9,6 +9,9 @@ from portalapi.serializers.request.user_serializers import UserSerializerWithPro
 class ProfileViewSet(viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated]
 
+    def get_serializer_class(self):
+        return UserSerializerWithProfile
+
     @action(detail=False, methods=["get"], url_path="me")
     def me(self, request):
         user = request.user

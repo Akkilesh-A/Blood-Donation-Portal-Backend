@@ -5,8 +5,6 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from xid import XID
 
-from portalapi.utils.constants import COMPATIBLE_TYPES
-
 
 class Scope(models.Model):
     """
@@ -78,7 +76,7 @@ class Role(models.Model):
 
 class BloodType(models.Model):
     blood_type = models.CharField(max_length=100)
-    compatible_with = models.CharField(max_length=100, choices=COMPATIBLE_TYPES)
+    compatible_with = models.CharField(max_length=100)
 
     def __str__(self):
         return self.blood_type

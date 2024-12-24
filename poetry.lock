@@ -183,6 +183,20 @@ files = [
 ]
 
 [[package]]
+name = "diff-match-patch"
+version = "20241021"
+description = "Repackaging of Google's Diff Match and Patch libraries."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "diff_match_patch-20241021-py3-none-any.whl", hash = "sha256:93cea333fb8b2bc0d181b0de5e16df50dd344ce64828226bda07728818936782"},
+    {file = "diff_match_patch-20241021.tar.gz", hash = "sha256:beae57a99fa48084532935ee2968b8661db861862ec82c6f21f4acdd6d835073"},
+]
+
+[package.extras]
+dev = ["attribution (==1.8.0)", "black (==24.8.0)", "build (>=1)", "flit (==3.9.0)", "mypy (==1.12.1)", "ufmt (==2.7.3)", "usort (==1.0.8.post1)"]
+
+[[package]]
 name = "dill"
 version = "0.3.8"
 description = "serialize all of Python"
@@ -242,6 +256,33 @@ files = [
 [package.extras]
 cyrillic = ["pytils (>=0.2)"]
 translitcodec = ["translitcodec (>=0.3)"]
+
+[[package]]
+name = "django-import-export"
+version = "4.3.3"
+description = "Django application and library for importing and exporting data with included admin integration."
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "django_import_export-4.3.3-py3-none-any.whl", hash = "sha256:91b47c9a2701a5b039667df5c46ee682a41bb224ac215a0e66b177a459e35983"},
+    {file = "django_import_export-4.3.3.tar.gz", hash = "sha256:b261f44aedf572a69f975655afba15bff1e354eddd91d9c1bbd32d3cee44168d"},
+]
+
+[package.dependencies]
+diff-match-patch = "20241021"
+Django = ">=4.2"
+tablib = ">=3.7.0"
+
+[package.extras]
+all = ["tablib[all]"]
+cli = ["tablib[cli]"]
+docs = ["openpyxl (==3.1.5)", "sphinx (==8.1.3)", "sphinx-rtd-theme (==3.0.1)"]
+ods = ["tablib[ods]"]
+pandas = ["tablib[pandas]"]
+tests = ["chardet (==5.2.0)", "coverage (==7.6.4)", "django-extensions (==3.2.3)", "memory-profiler (==0.61.0)", "mysqlclient (==2.2.5)", "psycopg2-binary (==2.9.10)", "pytz (==2024.2)", "setuptools-scm (==8.1.0)", "tablib[all] (>=3.7.0)"]
+xls = ["tablib[xls]"]
+xlsx = ["tablib[xlsx]"]
+yaml = ["tablib[yaml]"]
 
 [[package]]
 name = "django-phonenumber-field"
@@ -469,17 +510,6 @@ python-versions = ">=3.5"
 files = [
     {file = "inflection-0.5.1-py2.py3-none-any.whl", hash = "sha256:f38b2b640938a4f35ade69ac3d053042959b62a0f1076a5bbaa1b9526605a8a2"},
     {file = "inflection-0.5.1.tar.gz", hash = "sha256:1a29730d366e996aaacffb2f1f1cb9593dc38e2ddd30c91250c6dde09ea9b417"},
-]
-
-[[package]]
-name = "install"
-version = "1.3.5"
-description = "Install packages from within code"
-optional = false
-python-versions = ">=2.7, >=3.5"
-files = [
-    {file = "install-1.3.5-py3-none-any.whl", hash = "sha256:0d3fadf4aa62c95efe8d34757c8507eb46177f86c016c21c6551eafc6a53d5a9"},
-    {file = "install-1.3.5.tar.gz", hash = "sha256:e67c8a0be5ccf8cb4ffa17d090f3a61b6e820e6a7e21cd1d2c0f7bc59b18e647"},
 ]
 
 [[package]]
@@ -1021,6 +1051,26 @@ pyyaml = "*"
 typing-extensions = "*"
 
 [[package]]
+name = "tablib"
+version = "3.7.0"
+description = "Format agnostic tabular data library (XLS, JSON, YAML, CSV, etc.)"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "tablib-3.7.0-py3-none-any.whl", hash = "sha256:9a6930037cfe0f782377963ca3f2b1dae3fd4cdbf0883848f22f1447e7bb718b"},
+    {file = "tablib-3.7.0.tar.gz", hash = "sha256:f9db84ed398df5109bd69c11d46613d16cc572fb9ad3213f10d95e2b5f12c18e"},
+]
+
+[package.extras]
+all = ["odfpy", "openpyxl (>=2.6.0)", "pandas", "pyyaml", "tabulate", "xlrd", "xlwt"]
+cli = ["tabulate"]
+ods = ["odfpy"]
+pandas = ["pandas"]
+xls = ["xlrd", "xlwt"]
+xlsx = ["openpyxl (>=2.6.0)"]
+yaml = ["pyyaml"]
+
+[[package]]
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
@@ -1151,4 +1201,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "2067568bfe84f313f80d6cdce9e5af39e0295b98cec733dcaa591068debff286"
+content-hash = "fbc16bee6b6e8ac61acee776c446f349644a6ff8e0c36ec4550fcf30832e5734"

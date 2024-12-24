@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "portalapi",
     # Third Party Apps
     "rest_framework",
+    "import_export",
     "drf_yasg",
     "autoslug",
 ]
